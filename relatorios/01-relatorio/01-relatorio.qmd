@@ -1,0 +1,499 @@
+---
+title: "Introdução ao Sistema Quarto e à Linguagem R"
+subtitle: "Disciplina - Visualização de Dados"
+lang: pt-BR
+author: "Seu Nome"
+date: 2025-08-18
+format: 
+  html:
+    theme: flatly
+    embed-resources: true
+    toc: true
+    number-sections: true
+execute:
+  echo: true
+  message: false
+  warning: false
+---
+
+
+```{r}
+#| label: setup
+#| echo: false
+
+# digitos exibidos
+options(digits = 5, scipen = 999)
+
+# Carrega os pacotes usados
+library(here)       # para trabalhar com caminhos relativos
+library(tidyverse)  # metapacote para ciência de dados 
+```
+
+
+
+# Introdução ao Sistema Quarto
+
+
+## O que é o Quarto?
+
+O sistema de publicação técnica **Quarto** integra texto e código em um 
+mesmo documento. É usado para criar relatórios, artigos, apresentações, 
+dashboards, entre outros formatos.
+
+
+## Principais características
+
+- Suporte a múltiplas linguagens (R, Python, Julia).
+- Documentos reproduzíveis: texto e código executável.
+- Saídas em HTML, PDF, Word e slides.
+- Integração com Git e GitHub.
+
+
+## Estrutura de um documento Quarto
+
+1. **Cabeçalho YAML**: título, autor, data, formato de saída.
+2. **Texto em Markdown**: organização em seções.
+3. **Blocos de código**: execução de R ou outra linguagem.
+
+
+## Atalhos importantes no RStudio (Windows)
+
+- Inserir bloco de código: `Ctrl + Alt + I`
+- Executar linha ou seleção: `Ctrl + Enter`
+- Executar bloco inteiro: `Ctrl + Shift + Enter`
+- Renderizar documento: `Ctrl + Shift + K`
+- Inserir operador `<-`: `Alt + -`
+
+
+
+
+# Introdução à Linguagem R
+
+
+## Operadores básicos
+
+Alguns dos principais operadores da linguagem R estão exibidos na @tbl-1.
+
+
+| Operador(es)            | Descrição                     | Exemplo em R    |
+|-------------------------|-------------------------------|-----------------|
+| `<-`                  | Atribuição de valores           | `x <- 5`        |
+| `+`                   | Adição                          | `2 + 3`         |
+| `-`                   | Subtração                       | `7 - 4`         |
+| `*`                   | Multiplicação                   | `6 * 2`         |
+| `/`                   | Divisão                         | `10 / 2`        |
+| `^`                   | Potenciação                     | `3 ^ 2`         |
+| `<`, `<=`, `>`, `>=`  | Comparações relacionais         | `4 > 2`         |
+| `==`, `!=`            | Igualdade e diferença           | `5 == 5`        |
+| `&`, `|`, `!`         | Operadores lógicos (E, OU, NÃO) | `TRUE & FALSE`  |
+: Operadores básicos {#tbl-1}
+
+
+Seguem alguns exemplos de uso dos operadores:
+
+```{r}
+# atribuição de valor
+x <- 10
+```
+
+```{r}
+# adição
+y <- x + 5
+
+# exibe o resultado
+y
+```
+
+
+```{r}
+# subtração
+z <- y - 3
+# exibe o resultado
+z
+```
+
+```{r}
+# multiplicação
+w <- z * 2
+# exibe o resultado
+w
+```
+
+```{r}
+# divisão
+v <- w / 4
+# exibe o resultado
+v
+```
+
+```{r}
+# potenciação
+u <- v^2
+
+# exibe o resultado
+u
+```
+
+```{r}
+# comparação: verifica se x é maior que 5
+x > 5
+```
+
+```{r}
+# igualdade: verifica se x é igual a 10
+x == 10
+```
+
+
+```{r}
+# operador lógico: verifica se x é maior que 5 e menor que 15 
+x > 5 & x < 15
+```
+
+```{r}
+# operador lógico: verifica se x é maior que 5 ou menor que 0
+x > 5 | x < 0
+```
+
+```{r}
+# exibe x
+x
+
+# operador lógico: negação de uma condição
+! (x > 5)
+```
+
+
+
+
+## Tipos atômicos de dados em R
+
+Os principais tipos atômicos de dados em R estão listados na @tbl-2.
+
+
+| Tipo        | Classe      | Descrição        |
+| ----------- | ----------- | ---------------- |
+| `double`    | `numeric`   | valores reais    |
+| `integer`   | `numeric`   | valores inteiros |
+| `character` | `character` | texto            |
+| `logical`   | `logical`   | verdadeiro/falso |
+: Tipos básicos {#tbl-2}
+
+
+Exemplos de criação de variáveis:
+
+```{r}
+# tipo  double
+x <- 1.5 # valor real
+```
+
+```{r}
+# verifica o tipo e a classe
+typeof(x)
+class(x)
+```
+
+
+```{r}
+# tipo integer
+y <- 10L    
+```
+
+```{r} 
+# verifica o tipo e a classe
+typeof(y)
+class(y)
+```
+
+
+```{r}
+# tipo character
+z <- "administração"
+```
+
+```{r}
+# verifica o tipo e a classe
+typeof(z)
+class(z)
+```
+
+
+```{r}
+# tipo logical
+w <- TRUE   
+```
+
+
+```{r}
+# verifica o tipo e a classe
+typeof(w)
+class(w)
+```
+
+
+
+
+## Estruturas de dados
+
+
+### Vetores
+
+```{r}
+# custos de projetos em mil reais
+custos <- c(12, 15, 9, 14)
+mean(custos)  # média
+```
+
+
+### Data frames
+
+Em R, uma *data frame* é uma estrutura de dados bidimensional usada para 
+armazenar e manipular conjuntos de dados tabulares. É o formato mais comum 
+para trabalhar com dados importados de arquivos CSV, Excel, bancos de dados, 
+entre outros.
+
+Características principais de uma data frame:
+
+- **Organização em linhas e colunas**: cada coluna representa uma variável 
+e cada linha representa uma observação.
+
+- **Tipos de dados heterogêneos**: diferentes colunas podem conter tipos 
+distintos (numéricos, caracteres, lógicos, fatores etc.), mas dentro de 
+cada coluna os elementos devem ser do mesmo tipo.
+
+- **Compatibilidade com funções estatísticas e gráficas**: a maioria das 
+funções de análise em R aceita data frames como entrada.
+
+- **Rótulos de linhas e colunas**: colunas têm nomes (`colnames`), e 
+opcionalmente linhas podem ter nomes (`rownames`).
+
+
+A função básica para criar uma data frame é `data.frame()`:
+
+```{r}
+# cria um data frame simples
+df <- data.frame(
+  nome   = c("Ana", "Bruno", "Carla"),
+  idade  = c(23, 35, 29),
+  ativo  = c(TRUE, FALSE, TRUE)
+)
+
+df
+```
+
+
+Podemos obter informações sobre a estrutura de uma data frame usando funções 
+como:
+
+```{r}
+# função que exibe a estrutura de uma data frame
+str(df)       
+```
+
+```{r}
+# função que exibe os nomes das colunas/variáveis
+names(df)     
+```
+
+```{r}
+# função que exibe o número de linhas
+nrow(df)     
+```
+
+```{r}
+# função que exibe o número de colunas
+ncol(df)      
+```
+
+
+
+Podemos indexar (acessar ou selecionar) diferentes elementos de uma data frame 
+usando as seguintes sintaxes:
+
+```{r}
+# seleciona uma coluna pelo nome
+df$idade      
+```
+
+
+```{r}
+# seleciona a segunda coluna pelo índice
+df[, 2]       
+```
+
+
+```{r}
+# seleciona uma linha pelo índice
+df[2, ]      
+```
+
+
+```{r}
+# seleciona um elemento específico (linha, coluna)
+df[1, 3]      # linha 1, coluna 3
+```
+
+
+Boas práticas com data frames:
+
+- Sempre nomear colunas/variáveis de forma clara e sem espaços.
+- Manter consistência de tipos em cada coluna.
+- Usar o pacote `dplyr` para manipulação mais legível e eficiente.
+
+
+
+### Tibbles
+
+Uma **`tibble`** é uma versão moderna da `data.frame`, fornecida pelo 
+pacote **`tibble`** (parte do **tidyverse**). Foi projetada para ser mais 
+consistente, previsível e amigável na análise de dados, especialmente 
+quando combinado com pacotes do tidyverse.
+
+
+Podemos criar uma `tibble` usando a função `tibble()` do pacote 
+`tibble`:
+
+```{r}
+tb <- tibble(
+  nome   = c("Ana", "Bruno", "Carla"),
+  idade  = c(23, 35, 29),
+  ativo  = c(TRUE, FALSE, TRUE)
+)
+
+tb
+```
+
+
+
+
+## Funções matemáticas e estatísticas
+
+R possui diversas funções que facilitam cálculos matemáticos e estatísticos diretamente aplicáveis a vetores ou colunas de data frames ou tibbles, 
+vejamos algumas delas:
+
+```{r}
+numerico <- c(1, 3, 3.5, 4, 5, 6.5, 7, 8.5, 9, 10)
+```
+
+```{r}
+# calcular comprimento/tamanho do vetor
+length(numerico)
+```
+
+```{r}
+# calcula soma dos elementos
+sum(numerico)
+```
+
+```{r}
+# calcula a soma acumulada
+cumsum(numerico)
+```
+
+```{r}
+# calcula o produto dos elementos
+prod(numerico)
+```
+
+```{r}
+# calcula o produtoacumulado
+cumprod(numerico)
+```
+
+```{r}
+# calcula o logaritmo natural dos elementos
+log(numerico)
+```
+
+```{r}
+# logaritmo na base 10
+log10(numerico)
+```
+
+```{r}
+# calcula a função exponencial dos elementos
+exp(numerico)
+```
+
+```{r}
+# calcula a média amostral
+mean(numerico)
+```
+
+```{r}
+# calcula a mediana amostral
+median(numerico)
+```
+
+```{r} 
+# calcula os quartis
+quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1))
+```
+
+```{r}
+# calcula os decis
+quantile(x, probs = seq(0, 1, 0.1))
+```
+
+```{r}
+# calcula os percentis
+quantile(x, probs = seq(0, 1, 0.01))
+```
+
+
+```{r}
+# calcula a variância amostral
+var(numerico)
+```
+
+
+```{r}
+# calcula o desvio-padrão amostral
+sd(numerico)
+```
+
+
+```{r}
+# calcula o valor mínimo
+min(numerico)
+```
+
+```{r}
+# calcula o valor máximo
+max(numerico)
+```
+
+
+
+
+# Exercícios
+
+Utilizando seus conhecimentos sobre o sistema Quarto e a linguagem R, 
+responda aos seguintes exercícios. 
+
+Para resolver os exercícios, crie células de código R logo abaixo de 
+cada enunciado (Lembre-se que o atalho do teclado `Ctrl + Alt + I` insere uma 
+célula de código)
+
+
+1. Crie um vetor com os números de 1 a 10 e calcule a soma dos elementos. 
+
+
+2. Crie uma data frame com informações de três pessoas (nome, idade, ativo) e 
+exiba a média das idades. 
+
+
+3. Crie uma `tibble` com os mesmos dados do exercício anterior e exiba a 
+estrutura da `tibble`.
+
+
+4. Utilize as funções da linguagem R para calcular a média, mediana, 
+variância e desvio-padrão do vetor criado no exercício 1. 
+
+
+5. Crie um vetor com os custos de cinco projetos e calcule o custo total 
+e a média dos custos. 
+
+
+
+
