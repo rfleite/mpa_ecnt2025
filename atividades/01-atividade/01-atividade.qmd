@@ -1,229 +1,141 @@
 ---
-title: "Atividade 1"
-subtitle: "Econometria Aplicada à Finanças"
-lang: pt-BR
-author: "SEU NOME"
-date: 2025-09-01
-format: 
-  html:
-    theme: flatly
-    embed-resources: true
-execute:
-  echo: true
-  message: false
-  warning: false
-editor: source
+title: "Exercício 1 -Econometria Aplicada à Finanças"
+author: "Rafael Leite Nogueira"
+date: 2025-08-30
+format: typst
 ---
-
-
 # Exercício 1
 
 ## Sistema Quarto no RStudio
+Meu nome é Rafael Leite, sou formado em Administração pela UFSJ, e especialista em Finanças, Controladoria e Gestão de Projetos pela USP. Atualmente atuo como Analista Sênior de FP&A, mais especificamente com valuation, modelagem e análise econômico-financeira, além de ter atuado como professor de finanças e orçamento. Tenho grande interesse em ferramentas quantitativas aplicadas à tomada de decisão, especialmente aquelas que permitem traduzir dados em informações relevantes para avaliação de projetos, políticas públicas e estratégias empresariais.
 
-a. Crie um novo documento Quarto (`.qmd`) e salve-o na 
-pasta `relatorio/teste/02-teste/` com o nome `02-teste.qmd`, 
-tente utilizar o comando `mkdir` do terminal Git Bash para 
-criar a pasta.
+Com a disciplina de Econometria, espero aprofundar meus conhecimentos sobre métodos estatísticos aplicados à análise econômica e financeira, ampliando minha capacidade de interpretar dados e testar hipóteses de forma rigorosa. Acredito que o conteúdo será fundamental para aprimorar tanto minha atuação profissional, ao apoiar decisões baseadas em evidências, quanto minha formação acadêmica, fornecendo bases sólidas para futuras pesquisas e estudos avançados. Minha expectativa é sair da disciplina não apenas com domínio técnico, mas também com uma visão crítica sobre como os modelos econométricos podem ser utilizados no mundo real.
 
+### Criando Vetores
+#### Indicadores
+{r}
+# Idades
+idade <- c(20, 22, 19, 23)
+mean(idade)  # média
+min(idade)  # mínimo
+max(idade) # máximo
 
-b. Edite o cabeçalho do documento inserindo:
+#### Comentário
 
-   - Seu nome completo
-   - A data atual
-   - Um título descritivo
+Consegui renderizar o documento sem precisar instalar pacotes extras, já que usei a opção format: typst no YAML. Isso facilitou bastante, porque não precisei configurar o LaTeX. Achei o processo bem tranquilo e não tive dificuldades para gerar o PDF.
 
+# Exercício 2
+{r}
+preco_acao <- 37.85
+quantidade_monitorada <- 1200000
+empresa_analisada <- "XYZ"
+liquidez_diaria_alta <- TRUE
 
-c. No corpo do documento, escreva dois parágrafos de texto se 
-apresentando e comente brevemente o que espera aprender na disciplina.
+typeof(preco_acao); class(preco_acao)
+typeof(quantidade_monitorada); class(quantidade_monitorada)
+typeof(empresa_analisada); class(empresa_analisada)
+typeof(liquidez_diaria_alta); class(liquidez_diaria_alta)
 
+valor_mercado <- preco_acao * quantidade_monitorada
+valor_mercado
 
-d. Crie um vetor chamado `idades` com os valores `20, 22, 19, 23` e, 
-utilizando um bloco de código para cada estatística, calcule:
-
-   - A média das idades
-   - A menor idade
-   - A maior idade
-
-
-e. Renderize o documento para **HTML**.
-
-
-f. Renderize o documento para **PDF**. (**Obs.** Você pode gerar 
-um arquivo pdf usando a chave `format: typst` no cabeçalho yaml, o que 
-não exige a instalação da distribuição `tinytex` de LaTeX)
-
-
-g. Escreva um pequeno comentário sobre o processo de renderização: 
-foi necessário instalar pacotes? Encontrou dificuldades?
-
-
-
-
-# Exercício 2 
-
-## Tipos Atômicos de Dados
-
-Uma empresa de análise financeira está monitorando ações da empresa 
-fictícia *XYZ* para compor um relatório setorial sobre o 
-desempenho do setor de tecnologia.
-
-a. Crie e exiba os valores das seguintes variáveis:
-
-- `preco_acao` = preço atual da ação da empresa, definido como **37.85**
-
-- `quantidade_monitorada` = número de ações em circulação monitoradas 
-  pela equipe, definido como **1.200.000**
-  
-- `empresa_analisada` = nome da empresa sendo analisada: `XYZ`
-
-- `liquidez_diaria_alta` = valor lógico indicando se a ação apresenta 
-alta liquidez no mercado (use **TRUE**)
-
-
-b. Verifique o **tipo interno** e a **classe** de cada uma das variáveis 
-criadas.
-
-
-c. Calcule o valor total de mercado estimado das ações monitoradas, 
-multiplicando `preco_acao` pela `quantidade_monitorada`. Armazene o 
-resultado no objeto `valor_mercado`.
-
-
-e. Crie um vetor chamado `retornos_diarios` com os seguintes cinco 
-valores fictícios, representando os retornos (%) da ação nos últimos 
-cinco pregões:  `1.20, -0.85, 0.43, 1.10, -0.25`
-
-Calcule:
-
-- Soma dos retornos no período
-- Média dos retornos
-- Mediana dos retornos
-- Quartis
-- Variância
-- Desvio padrão
-
-
-
+retornos_diarios <- c(1.20, -0.85, 0.43, 1.10, -0.25)
+sum(retornos_diarios)
+mean(retornos_diarios)
+median(retornos_diarios)
+quantile(retornos_diarios)
+var(retornos_diarios)
+sd(retornos_diarios)
 
 # Exercício 3 
+{r}
+notas <- c(7.5, 8.0, 6.5, 9.0, 5.5)
 
-## Operações Matemáticas/Estatístics Vetoriais
+sum(notas)
+mean(notas)
+median(notas)
+var(notas)
+sd(notas)
 
-a. Crie um vetor chamado `notas` com os valores: 7.5, 8.0, 6.5, 9.0, 5.5. 
+cumsum(notas)
+cumprod(notas)
 
+min(notas)
+max(notas)
 
-b. Calcule a soma, média, mediana, variância e desvio padrão do vetor `notas`.
+quantile(notas)
+quantile(notas, probs = seq(0, 1, 0.1)) # decis
+quantile(notas, probs = seq(0, 1, 0.01)) # percentis
 
+# Exercício 4
+{r}
+A <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 2, byrow = TRUE)
+B <- matrix(c(2, 4, 1, 3, 5, 2), nrow = 3, byrow = TRUE)
 
-c. Calcule a soma acumulada e o produto acumulado do vetor `notas`.
+A %*% B
+t(A)
 
+## Matriz Quadrada
+A2 <- matrix(c(2, 1, 1, 2), nrow = 2)
+det(A2)
+solve(A2)
+A2 %*% solve(A2)
 
-d. Encontre o valor mínimo e máximo do vetor `notas`. 
+# Exercício 5
 
+{r}
+funcionarios <- data.frame(
+  nome = c("Ana", "Bruno", "Carlos"),
+  salario = c(4500, 5200, 4800),
+  departamento = c("Financeiro", "TI", "RH")
+)
 
-e. Calcule os quartis, decis e percentis do vetor `notas`. 
+library(tibble)
+funcionarios_tb <- as_tibble(funcionarios)
 
+nrow(funcionarios_tb)
+ncol(funcionarios_tb)
 
+segunda_linha <- funcionarios_tb[2, ]
+segunda_linha
 
+#Exercício 6
 
-# Exercício 4 
+library(here)
+library(readr)
+library(dplyr)
 
-## Algebra Matricial Numérica
+dados <- read_csv(here("dados/brutos/dados_simulados.csv"))
+glimpse(dados)
 
-a. Crie uma matriz 2x3 chamada `A` com os valores: 1, 2, 3, 4, 5, 6.  
+dados %>% select(empresa, setor, lucro_liquido, valor_mercado, preco_acao)
 
+# P/L
+dados <- dados %>%
+  mutate(pl = valor_mercado / lucro_liquido)
 
-b. Crie uma matriz 3x2 chamada `B` com os valores: 2, 4, 1, 3, 5, 2.  
+# Lucro líquido médio por setor
+dados %>%
+  group_by(setor) %>%
+  summarise(media_lucro = mean(lucro_liquido, na.rm = TRUE))
 
+# Valor de mercado total por setor
+dados %>%
+  group_by(setor) %>%
+  summarise(total_valor = sum(valor_mercado, na.rm = TRUE))
 
-c. Calcule o resultado da multiplicação de `A` por `B`.  
+# Quantidade de empresas por setor
+dados %>%
+  count(setor)
 
+# Filtrar setor de tecnologia e ordenar por P/L
+dados %>%
+  filter(setor == "Tecnologia") %>%
+  arrange(desc(pl))
 
-d. Calcule a transposta de `A`.  
+# Criar variável eficiência de mercado
+dados <- dados %>%
+  mutate(eficiencia_mercado = valor_mercado / ativo_total)
 
-
-e. Calcule o determinante de `A`.  
-
-
-f. Calcule a inversa de `A`. Pesquise e comente por que não é 
-recomendado utilizar a matriz inversa para resolver sistemas 
-lineares.
-
-
-g. Verifique se `A * A^(-1)` resulta na matriz identidade.
-
-
-
-
-# Exercício 5 
-
-## Data Frames e Tibbles
-
-a. Crie um data frame chamado `funcionarios` com as colunas `nome` 
-(três nomes), `salario` (três valores numéricos) e `departamento` 
-(valores de texto) e exiba a data frame crida.
-
-
-b. Converta `funcionarios` em uma tibble e a denomine `funcionarios_tb`, 
-exiba (imprima) a tibble, qual a diferença na exibição de uma data 
-frame e uma tibble?
-
-
-c. Verifique quantas linhas e colunas a tibble possui com `nrow()` e `ncol()`.
-
-
-d. Extraia a segunda linha da tibble e salve em um objeto 
-chamado `segunda_linha`.  
-
-
-
-
-# Exercício 6 
-
-## Manipulação de Dados com dplyr
-
-Você faz parte da equipe de análise de uma consultoria financeira. Seu 
-objetivo é extrair informações relevantes a partir de um conjunto de dados 
-com indicadores contábeis de empresas brasileiras de capital aberto. 
-
-Utilize os dados contidos no arquivo `dados/brutos/dados_simulados.csv` para 
-resolver os itens a seguir. 
-
-a. Importe o arquivo de dados usando os pacotes here e readr e utilize a 
-função `glimpse()` para exibir a estrutura dos dados. Nomei o objeto 
-importado como `dados`.
-
-
-b. Como selecionar apenas as colunas: `empresa`, `setor`, `lucro_liquido`, 
-`valor_mercado`, `preco_acao`?
-
-
-c. Crie uma nova variável chamada `pl`, representando a razão Preço/Lucro 
-(P/L), utilizando a fórmula:
-
-$$
-\text{P/L} = \frac{\text{valor\_mercado}}{\text{lucro\_liquido}}
-$$
-
-**Obs.** Embora os dados contenham o preço da ação (`preco_acao`), o número 
-de ações em circulação não está explicitamente disponível. Por isso, usamos
-a valor de mercado.
-
-
-e. Crie três pipelines que calculem:
-
-- O lucro líquido médio por setor
-
-- O valor de mercado total por setor
-
-- A quantidade de empresas em cada setor
-
-
-
-d. Filtre apenas as empresas do setor de **Tecnologia** e ordene essas 
-empresas da maior para a menor razão P/L.
-
-
-f. Crie uma nova variável chamada `eficiencia_mercado`, definida como o 
-quociente entre o valor de mercado e o ativo total. Em seguida, filtre as 
-empresas com `eficiencia_mercado > 1` e com ROE acima de de 10%.
+dados %>%
+  filter(eficiencia_mercado > 1, ROE > 0.10)
